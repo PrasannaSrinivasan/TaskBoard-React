@@ -1,0 +1,9 @@
+.List{
+    min-height: 200px;
+    border: 1px solid #fff;
+    width: 19%;
+    padding: 1%;
+    box-sizing: border-box;
+    float: left;
+    margin: 5px;
+}

@@ -1,0 +1,30 @@
+.TaskBoard{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: auto;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.TaskBoard > div{
+    padding: 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.Header{
+    display: flex;
+    height: 55px;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.ListContainer{
+    background: #337ab7; 
+    min-height: calc(100vh - 55px);
+    overflow: auto;
+}
+
+
+/* #b2b2b2 */
