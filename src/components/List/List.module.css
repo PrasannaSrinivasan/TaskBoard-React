@@ -1,9 +1,18 @@
 .List{
-    min-height: 200px;
-    border: 1px solid #fff;
+    height: 100%;
     width: 19%;
     padding: 1%;
-    box-sizing: border-box;
-    float: left;
     margin: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 13px #ddd;
+    overflow: auto;
+}
+.ListIcons{
+    margin: 0px 3px;
+    font-size: 16px;
+}
+.ListHeader{
+    display: flex;
+    justify-content: space-between;
 }

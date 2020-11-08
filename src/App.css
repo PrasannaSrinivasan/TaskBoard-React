@@ -1,6 +1,7 @@
 *{
 	scrollbar-width: thin !important;
     scrollbar-color:  #ccc #fff !important;
+    box-sizing: border-box;
 }
 ::-webkit-scrollbar {
     width: 7px;

@@ -10,8 +10,11 @@
 .Red{
     background-color: #ff0037 !important;
 }
+.Green{
+    background-color: #228B22 !important;
+}
 
 button.Default:hover{
     opacity: 0.8;
     cursor: pointer;
-  }
+}

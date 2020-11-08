@@ -1,3 +1,22 @@
 .Card{
-    
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 15px 0 0 0;
+    border-radius: 5px;
+    background-color: #eee;
+}
+.CardHeader{
+    display: flex;
+    justify-content: space-between;
+}
+.CardTextArea{
+    width: 100%;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px 0 0 0;
+    padding: 5px;
+}
+.CardTextArea:focus{
+    border: 1px solid #337ab7;
 }

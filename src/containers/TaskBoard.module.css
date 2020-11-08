@@ -5,6 +5,7 @@
     margin: auto;
     border-radius: 5px;
     box-sizing: border-box;
+
 }
 
 .TaskBoard > div{
@@ -24,7 +25,6 @@
     background: #337ab7; 
     min-height: calc(100vh - 55px);
     overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
-
-
-/* #b2b2b2 */
