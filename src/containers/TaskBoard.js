@@ -46,20 +46,7 @@ class TaskBoard extends Component {
         this.setState({ ...this.state, lists : []});
     }
     
-    deleteCard = (deleteCardId) => {
-        //alert("Delete Card");
-        console.log(this.state);
-        const lists = [...this.state.lists];
-        lists.forEach((item,index) => { 
-            item.cards.forEach( (cdItem, cdindex) => {
-                if(cdItem.cardId === deleteCardId){
-                    lists[index].cards.splice(cdindex,1);
-                }
-            });
-            
-        });
-        this.setState({ ...this.state, lists : lists});
-    }
+    deleteCard = () => { }
 
     addList = () => {
         // Add new list to Board
