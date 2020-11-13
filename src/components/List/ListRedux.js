@@ -40,8 +40,9 @@ class List extends Component {
                                 {listItem.cards.length ? listItem.cards.map((cardItem, cardIndex) => {
                                     return (
                                         <React.Fragment key={cardIndex}>
+                                            { cardIndex === 0 ? addCardBtn : null}
                                             <Card  cardItem={cardItem} listId={listItem.listId} />
-                                            { listItem.cards.length - 1 === cardIndex || listItem.cards.length === 0 ? addCardBtn : null}
+                                            {/* { listItem.cards.length - 1 === cardIndex || listItem.cards.length === 0 ? addCardBtn : null} */}
                                         </React.Fragment>)
                                 }) : addCardBtn }
                             </div>
