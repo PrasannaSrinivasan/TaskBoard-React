@@ -18,3 +18,8 @@ button.Default:hover{
     opacity: 0.8;
     cursor: pointer;
 }
+button:disabled, button:disabled:hover{
+    background-color: #a19f9f;
+    opacity: 1;
+    cursor: default;
+}

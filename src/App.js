@@ -1,5 +1,6 @@
 import './App.css';
-import TaskBoard from "./containers/TaskBoard";
+import TaskBoard from "./containers/TaskBoardRedux";
+
 
 function App() {
   return (
