@@ -15,12 +15,22 @@ class TaskBoard extends Component {
     };
 
     addNewList = () => {
-        let listNumber = this.props.lists.length + 1;
         let listObject = {};
-        listObject["listName"] = "List" + listNumber;
+        listObject["listName"] = this.state.listName;
         listObject["listId"] = new Date().getTime().toString();
         listObject["cards"] = [];
+        this.setState({listName: "", disableAddList: true })
         this.props.addList(listObject);
+    }
+
+    handleListNameChange = (event) => {
+        let listName = event.target.value;
+        listName = listName.trim();
+        if(event.target.value){
+            this.setState({listName: listName,disableAddList: false })
+        }else{
+            this.setState({listName: listName,disableAddList: true })
+        }
     }
 
     render() {
@@ -32,7 +42,7 @@ class TaskBoard extends Component {
                 <div className={classes.Header}>
                     <div> Task Board </div>
                     <div>
-                        <input type="text" placeholder="Enter List Name" className={classes.Input} />
+                        <input type="text" placeholder="Enter List Name" className="Input" value={this.state.listName} onChange={this.handleListNameChange} />
                         <Button click={this.addNewList} disabled={this.state.disableAddList}>Add List</Button>
                         <Button buttonColor="Red" click={this.props.clearBoard}>Clear Board</Button>
                     </div>
@@ -54,9 +64,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addList: (listDetails) => dispatch({ type: actions.ADD_LIST, list: listDetails }),
-        clearBoard: () => dispatch({ type: actions.CLEAR_LIST })
-        // onInitIngredients: () => dispatch(actions.initIngredients()),
-        // onInitPurchase: () => dispatch(actions.purchaseInit())
+        clearBoard: () => dispatch({ type: actions.CLEAR_LIST })        
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TaskBoard);

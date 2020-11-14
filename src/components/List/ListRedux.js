@@ -7,33 +7,47 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 
 class List extends Component {
-    
-    addCard = (listId) => {
+
+    addCard = (event, listId) => {
         let cardItem = {};
-        cardItem["cardName"] = "Card Name 1";
+        cardItem["cardName"] = event.target.parentElement.children[0].value.trim();
         cardItem["cardId"] = new Date().getTime().toString();
-        cardItem["cardDescription"] = "Card Description";
+        cardItem["cardDescription"] = event.target.parentElement.children[1].value.trim();
         cardItem["comments"] = [];
-        this.props.addCard(cardItem,listId);
-     }
-    
+        this.props.addCard(cardItem, listId);
+    }
+
+    handleCardInputChange = (event) => { // Vanilla JavaScript
+        let cardName = event.target.parentElement.children[0].value;
+        let cardDesc = event.target.parentElement.children[1].value;
+        const addCardButton = event.target.parentElement.children[2];
+        console.log(addCardButton);
+        if (cardName.trim() && cardDesc.trim()) {
+            addCardButton.disabled = false;
+        } else {
+            addCardButton.disabled = true;
+        }
+    }
+
     render() {
         console.log("List Rendered");
         return (
             <React.Fragment>
                 {this.props.lists.map((listItem, listIndex) => {
-                    const addCardBtn = <div style={{textAlign: 'center',margin: '10px 0 0 0 ', cursor: 'pointer'}} >
-                            <Button click={() => this.addCard(listItem.listId)} > Add Card </Button> 
-                        </div>;
+                    const addCardBtn = <div className={classes.AddCard} >
+                        <input type="text" className={`${classes.InputPadding} Input `} onChange={this.handleCardInputChange} placeholder="Enter Card Name" />
+                        <input type="text" className={`${classes.InputPadding} Input `} onChange={this.handleCardInputChange} placeholder="Enter Card Description" />
+                        <Button click={(e) => this.addCard(e, listItem.listId)} > Add Card </Button>
+                    </div>;
                     return (
                         <div key={listIndex} className={classes.List} id={listItem.listId} >
                             <div className={classes.ListHeader}>
                                 <div> {listItem.listName}</div>
                                 <div>
-                                    <FaRegTrashAlt 
-                                    onClick={() => this.props.deleteList(listItem.listId)}
-                                    className={classes.ListIcons} 
-                                    style={{ color: "#ff0037", cursor: "pointer" }} />
+                                    <FaRegTrashAlt
+                                        onClick={() => this.props.deleteList(listItem.listId)}
+                                        className={classes.ListIcons}
+                                        style={{ color: "#ff0037", cursor: "pointer" }} />
                                 </div>
                             </div>
                             <div>
@@ -41,10 +55,10 @@ class List extends Component {
                                     return (
                                         <React.Fragment key={cardIndex}>
                                             { cardIndex === 0 ? addCardBtn : null}
-                                            <Card  cardItem={cardItem} listId={listItem.listId} />
+                                            <Card cardItem={cardItem} listId={listItem.listId} />
                                             {/* { listItem.cards.length - 1 === cardIndex || listItem.cards.length === 0 ? addCardBtn : null} */}
                                         </React.Fragment>)
-                                }) : addCardBtn }
+                                }) : addCardBtn}
                             </div>
                         </div>
                     )
@@ -62,8 +76,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addCard: (cardItem,listId) => dispatch({ type: actions.ADD_CARD, cardItem: cardItem, listId: listId }),
-		deleteList: (listId) => dispatch({ type: actions.DELETE_LIST, listId: listId })
+        addCard: (cardItem, listId) => dispatch({ type: actions.ADD_CARD, cardItem: cardItem, listId: listId }),
+        deleteList: (listId) => dispatch({ type: actions.DELETE_LIST, listId: listId })
     }
 }
 

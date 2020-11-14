@@ -16,3 +16,12 @@
     display: flex;
     justify-content: space-between;
 }
+.AddCard{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0 0 0;
+}
+.InputPadding{
+    margin: 5px;
+}

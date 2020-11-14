@@ -105,17 +105,28 @@ const deleteCard = (state, action) => {
 
 // }
 
-// const addComment = (state, action) => {
-//     const addToList = action.listId;
-//     const addToCardId = action.cardId;
-//     const comment = action.comment;
-//     let updatedList = [...state.lists];
-//     return {
-//         ...state,
-//         lists: updatedList
-//     };
+const addComment = (state, action) => {
+    const addToList = action.listId;
+    const addToCardId = action.cardId;
+    const comment = action.comment;
+    let updatedList = [...state.lists];
+    updatedList = updatedList.map(list => {
+        if(list.listId === addToList){
+            list.cards = list.cards.map(card => {
+                if(card.cardId === addToCardId){
+                    card.comments.push(comment);
+                }
+                return card;
+            })
+        }
+        return list;
+    })
+    return {
+        ...state,
+        lists: updatedList
+    };
 
-// }
+}
 
 // const deleteComment = (state, action) => {
 //     const listId = action.listId;
@@ -137,7 +148,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_CARD: return addCard(state, action);
         case actionTypes.DELETE_CARD: return deleteCard(state, action);
         // case actionTypes.MOVE_CARD: return moveCard(state, action);
-        // case actionTypes.ADD_COMMENT: return addComment(state, action);
+        case actionTypes.ADD_COMMENT: return addComment(state, action);
         // case actionTypes.DELETE_COMMENT: return deleteComment(state, action);
         default: return state;
     }
