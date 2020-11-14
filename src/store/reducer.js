@@ -78,7 +78,6 @@ const moveCard = (state, action) => {
     if (!destination) {
         return;
     }
-    console.log(action.eventData)
     lists.forEach((item, index) => {
         if (item.listId === source.droppableId) {
             item.cards.forEach((cdItem, cdindex) => {
@@ -89,11 +88,9 @@ const moveCard = (state, action) => {
             })
         }
     });
-    console.log(cardItem,cardIndex);
     lists.forEach((item, index) => {
         if (item.listId === source.droppableId) {
             lists[index].cards.splice(cardIndex, 1);
-            console.log(lists);
         }
         if (item.listId === destination.droppableId) {
             lists[index].cards.splice(destination.index, 0, cardItem);

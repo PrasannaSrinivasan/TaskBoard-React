@@ -20,7 +20,6 @@ class List extends Component {
         cardNameInput.value = "";
         cardDescInput.value = "";
         this.props.addCard(cardItem, listId);
-        console.log(this);
     }
 
     handleCardInputChange = (event) => { // Vanilla JavaScript
