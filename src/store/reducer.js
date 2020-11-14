@@ -1,35 +1,7 @@
 import * as actionTypes from "./actions";
 
 const initialState = {
-    lists: [
-        // {
-        //     listName: "List 1",
-        //     listId: "1",
-        //     cards: [{
-        //         cardId: "1",
-        //         cardName: "Card 1",
-        //         cardDesription: "Description",
-        //         comments: [
-        //             "Comment 1",
-        //             "Comment 2",
-        //         ]
-        //     }, {
-        //         cardId: "2",
-        //         cardName: "Card 2",
-        //         comments: [
-        //             "Comment 1",
-        //         ]
-        //     }, {
-        //         cardId: "3",
-        //         cardName: "Card 3",
-        //         comments: [
-        //             "Comment 1",
-        //             "Comment 2",
-        //             "Comment 3",
-        //         ]
-        //     }]
-        // }
-    ]
+    lists: []
 };
 
 const addList = (state, action) => {
@@ -96,26 +68,67 @@ const deleteCard = (state, action) => {
 
 }
 
-// const moveCard = (state, action) => {
-//     let updatedList = [...state.lists];
-//     return {
-//         ...state,
-//         lists: []
-//     };
+const moveCard = (state, action) => {
+    const destination = action.eventData.destination;
+    const source = action.eventData.source;
+    const draggableId = action.eventData.draggableId;
+    let cardIndex;
+    let cardItem;
+    const lists = [...state.lists];
+    if (!destination) {
+        return;
+    }
+    console.log(action.eventData)
+    lists.forEach((item, index) => {
+        if (item.listId === source.droppableId) {
+            item.cards.forEach((cdItem, cdindex) => {
+                if (cdItem.cardId === draggableId) {
+                    cardItem = cdItem;
+                    cardIndex = cdindex;
+                }
+            })
+        }
+    });
+    console.log(cardItem,cardIndex);
+    lists.forEach((item, index) => {
+        if (item.listId === source.droppableId) {
+            lists[index].cards.splice(cardIndex, 1);
+            console.log(lists);
+        }
+        if (item.listId === destination.droppableId) {
+            lists[index].cards.splice(destination.index, 0, cardItem);
+        }
+    });
 
-// }
+    return {
+        ...state,
+        lists: lists
+    };
 
-// const addComment = (state, action) => {
-//     const addToList = action.listId;
-//     const addToCardId = action.cardId;
-//     const comment = action.comment;
-//     let updatedList = [...state.lists];
-//     return {
-//         ...state,
-//         lists: updatedList
-//     };
+}
 
-// }
+const addComment = (state, action) => {
+    const addToList = action.listId;
+    const addToCardId = action.cardId;
+    const comment = action.comment;
+    let updatedList = [...state.lists];
+    updatedList = updatedList.map(list => {
+        if (list.listId === addToList) {
+            list.cards = list.cards.map(card => {
+                if (card.cardId === addToCardId) {
+                    card.comments.push(comment);
+                }
+                return card;
+            })
+        }
+        return list;
+    })
+    return {
+        ...state,
+        lists: updatedList
+    };
+
+}
 
 // const deleteComment = (state, action) => {
 //     const listId = action.listId;
@@ -136,8 +149,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.CLEAR_LIST: return clearList(state, action);
         case actionTypes.ADD_CARD: return addCard(state, action);
         case actionTypes.DELETE_CARD: return deleteCard(state, action);
-        // case actionTypes.MOVE_CARD: return moveCard(state, action);
-        // case actionTypes.ADD_COMMENT: return addComment(state, action);
+        case actionTypes.MOVE_CARD: return moveCard(state, action);
+        case actionTypes.ADD_COMMENT: return addComment(state, action);
         // case actionTypes.DELETE_COMMENT: return deleteComment(state, action);
         default: return state;
     }

@@ -1,18 +1,49 @@
-.List{
-    height: 97%;
-    width: 19%;
-    padding: 1%;
-    margin: 5px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 4px 13px #ddd;
-    overflow: auto;
+.List {
+  height: 97%;
+  width: 19%;
+  padding: 1%;
+  margin: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 13px #ddd;
+  overflow: auto;
 }
-.ListIcons{
-    margin: 0px 3px;
-    font-size: 16px;
+.ListIcons {
+  margin: 0px 3px;
+  font-size: 16px;
 }
-.ListHeader{
-    display: flex;
-    justify-content: space-between;
+.ListHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.AddCard {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0 0 0;
+}
+.InputPadding {
+  margin: 5px;
+}
+
+@media only screen and (max-width: 539.9px) {
+  .List {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 540px) and (max-width: 599.9px) {
+  .List {
+    width: 48%;
+  }
+}
+
+@media only screen and (min-width: 600px)  and (max-width: 991.9px) {
+  .List {
+    width: 30%;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199.9px) {
+  .List {
+    width: 24%;
+  }
 }

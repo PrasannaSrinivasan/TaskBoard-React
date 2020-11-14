@@ -13,3 +13,14 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #a9a9a9; 
 } 
+.Input{
+    border: 2px solid #337ab7;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .Input{
+        width: 95%;
+    }
+}
