@@ -76,8 +76,9 @@ const moveCard = (state, action) => {
     let cardItem;
     const lists = [...state.lists];
     if (!destination) {
-        return;
+        return state;
     }
+
     lists.forEach((item, index) => {
         if (item.listId === source.droppableId) {
             item.cards.forEach((cdItem, cdindex) => {
@@ -100,7 +101,8 @@ const moveCard = (state, action) => {
     return {
         ...state,
         lists: lists
-    };
+    }
+
 
 }
 
@@ -143,11 +145,11 @@ const moveList = (state, action) => {
     const updatedList = [...state.lists];
     const listId = action.listId;
     const toPosition = action.toPosition;
-    updatedList.every((item,index) => {
-        if(item.listId === listId){
+    updatedList.every((item, index) => {
+        if (item.listId === listId) {
             const listItem = item;
             updatedList.splice(index, 1);
-            updatedList.splice(toPosition, 0 ,listItem);
+            updatedList.splice(toPosition, 0, listItem);
             return false;
         }
         return true;
