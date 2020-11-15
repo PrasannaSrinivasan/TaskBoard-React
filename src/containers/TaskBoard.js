@@ -32,7 +32,7 @@ class TaskBoard extends Component {
     }
 
     dragEnded = event => { // Javascript Drop
-        const droppedX = event.screenX;
+        const droppedX = event.screenX  + document.getElementById("taskBoardContainer").scrollLeft;
         const droppedY = event.screenY;
         const listItems = document.querySelectorAll("#taskBoardContainer > div");
         const listId = event.target.id; let toPosition;
