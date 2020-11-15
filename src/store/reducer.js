@@ -139,6 +139,26 @@ const addComment = (state, action) => {
 
 // }
 
+const moveList = (state, action) => {
+    const updatedList = [...state.lists];
+    const listId = action.listId;
+    const toPosition = action.toPosition;
+    updatedList.every((item,index) => {
+        if(item.listId === listId){
+            const listItem = item;
+            updatedList.splice(index, 1);
+            updatedList.splice(toPosition, 0 ,listItem);
+            return false;
+        }
+        return true;
+    });
+
+    return {
+        ...state,
+        lists: updatedList
+    };
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_LIST: return addList(state, action);
@@ -148,10 +168,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_CARD: return deleteCard(state, action);
         case actionTypes.MOVE_CARD: return moveCard(state, action);
         case actionTypes.ADD_COMMENT: return addComment(state, action);
+        case actionTypes.MOVE_LIST: return moveList(state, action);
         // case actionTypes.DELETE_COMMENT: return deleteComment(state, action);
         default: return state;
     }
 };
 
 export default reducer;
-

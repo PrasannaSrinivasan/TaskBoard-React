@@ -5,5 +5,5 @@ export const ADD_CARD = "ADD_CARD";
 export const DELETE_CARD = "DELETE_CARD";
 export const MOVE_CARD = "MOVE_CARD";
 export const ADD_COMMENT = "ADD_COMMENT";
-export const DELETE_COMMENT = "DELETE_COMMENT";
-
+export const MOVE_LIST = "MOVE_LIST";
+// export const DELETE_COMMENT = "DELETE_COMMENT";

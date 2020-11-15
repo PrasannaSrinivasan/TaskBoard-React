@@ -31,25 +31,51 @@ class TaskBoard extends Component {
         }
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
+    dragEnded = event => { // Javascript Drop
+        const droppedX = event.screenX;
+        const droppedY = event.screenY;
+        const listItems = document.querySelectorAll("#taskBoardContainer > div");
+        const listId = event.target.id; let toPosition;
+        listItems.forEach((list, index) => {
+            let widthOffset = list.offsetLeft + list.offsetWidth;
+            let heightOffset = list.offsetHeight + list.offsetTop;
+            if(droppedX < list.offsetLeft && isNaN(toPosition)){
+                toPosition = 0;
+            }
+            else if (droppedX < widthOffset && droppedY > list.offsetTop && droppedY < heightOffset && isNaN(toPosition)) {
+                toPosition = index;
+            }
+        });
+        if (isNaN(toPosition)) {
+            toPosition = listItems.length - 1;
+        }
+        this.props.moveList(listId, toPosition);
+        event.currentTarget.style.backgroundColor = "#337ab7";
+    }
 
-    //     return nextProps.lists.length !== this.props.lists.length;
-    // }
+    dragEnter = event => {
+        event.currentTarget.style.backgroundColor = "#00a1de";
+        event.preventDefault();
+    }
+
+    dragOver = ev => {
+        ev.preventDefault();
+    }
 
     render() {
 
         return (
-            <div className={classes.TaskBoard}>
+            <div className={classes.TaskBoard} >
                 <div className={classes.Header}>
                     <div> Task Board </div>
                     <div>
-                        <input type="text" style={{width: "200px"}} placeholder="Enter List Name" className="Input" value={this.state.listName} onChange={this.handleListNameChange} />
+                        <input type="text" style={{ width: "200px" }} placeholder="Enter List Name" className="Input" value={this.state.listName} onChange={this.handleListNameChange} />
                         <Button click={this.addNewList} disabled={this.state.disableAddList}>Add List</Button>
                         <Button buttonColor="Red" click={this.props.clearBoard}>Clear Board</Button>
                     </div>
                 </div>
                 <DragDropContext onDragEnd={(event) => this.props.moveCard(event)} >
-                    <div id="taskBoardContainer" className={classes.ListContainer} >
+                    <div id="taskBoardContainer" className={classes.ListContainer} onDragOver={e => this.dragOver(e)} onDragEnter={ev => this.dragEnter(ev)} onDragEnd={e => this.dragEnded(e)} >
                         <Lists />
                     </div>
                 </DragDropContext>
@@ -68,7 +94,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addList: (listDetails) => dispatch({ type: actions.ADD_LIST, list: listDetails }),
         clearBoard: () => dispatch({ type: actions.CLEAR_LIST }),
-        moveCard: (event) => dispatch({ type: actions.MOVE_CARD , eventData: event})
+        moveCard: (event) => dispatch({ type: actions.MOVE_CARD, eventData: event }),
+        moveList: (listId, toPosition) => dispatch({ type: actions.MOVE_LIST, listId: listId, toPosition: toPosition })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TaskBoard);
