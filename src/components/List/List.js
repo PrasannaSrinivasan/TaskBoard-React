@@ -40,6 +40,11 @@ class List extends Component {
                 item.setAttribute("disabled", true)
         });
     }
+ 
+    dragStart = event => {
+        event.dataTransfer.dropeffect = "move";
+        event.dataTransfer.effectAllowed = "move";
+    }
 
     render() {
 
@@ -54,7 +59,7 @@ class List extends Component {
                     return (
                         <Droppable key={listItem.listId} droppableId={listItem.listId} >
                             {provided => {
-                                return (<div
+                                return (<div draggable="true"  onDragStart={(e) => this.dragStart(e)}
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
                                     className={classes.List}
