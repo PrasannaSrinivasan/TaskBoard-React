@@ -1,12 +1,13 @@
-.List {
-  height: 97%;
-  width: 19%;
-  padding: 1%;
-  margin: 5px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 4px 13px #ddd;
-  overflow: auto;
+.List{
+	height: 97%;
+	width: 19%;
+	padding: 1%;
+	margin: 5px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 4px 13px #ddd;
+	overflow: auto;
+	flex-shrink: 0;
 }
 .ListIcons {
   margin: 0px 3px;
