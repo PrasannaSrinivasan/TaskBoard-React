@@ -1,35 +1,26 @@
 import * as actionTypes from "./actions";
+import { updateState } from "./utility"
 
-const initialState = {
-    lists: []
-};
+const initialState = localStorage.getItem("taskListState") ? JSON.parse(localStorage.getItem("taskListState")) : { lists: [] }
 
 const addList = (state, action) => {
     let updatedList = [...state.lists];
     updatedList.push(action.list);
-    return {
-        ...state,
-        lists: updatedList
-    };
+
+    return updateState(state, { lists: updatedList });
+
 }
 
 const deleteList = (state, action) => {
     let updatedList = [...state.lists];
     updatedList = updatedList.filter(list => list.listId !== action.listId);
-    return {
-        ...state,
-        lists: updatedList
-    };
 
+    return updateState(state, { lists: updatedList });
 }
 
 const clearList = (state, action) => {
     let updatedList = [];
-    return {
-        ...state,
-        lists: updatedList
-    };
-
+    return updateState(state, { lists: updatedList });
 }
 
 const addCard = (state, action) => {
@@ -43,10 +34,7 @@ const addCard = (state, action) => {
         return item;
 
     });
-    return {
-        ...state,
-        lists: updatedList
-    };
+    return updateState(state, { lists: updatedList });
 
 }
 
@@ -61,11 +49,7 @@ const deleteCard = (state, action) => {
         }
         return updatedListItem;
     })
-    return {
-        ...state,
-        lists: updatedList
-    };
-
+    return updateState(state, { lists: updatedList });
 }
 
 const moveCard = (state, action) => {
@@ -98,11 +82,7 @@ const moveCard = (state, action) => {
         }
     });
 
-    return {
-        ...state,
-        lists: lists
-    }
-
+    return updateState(state, { lists: lists });
 
 }
 
@@ -122,10 +102,8 @@ const addComment = (state, action) => {
         }
         return list;
     })
-    return {
-        ...state,
-        lists: updatedList
-    };
+
+    return updateState(state, { lists: updatedList });
 
 }
 
@@ -155,10 +133,7 @@ const moveList = (state, action) => {
         return true;
     });
 
-    return {
-        ...state,
-        lists: updatedList
-    };
+    return updateState(state, { lists: updatedList });
 }
 
 const reducer = (state = initialState, action) => {
