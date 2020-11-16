@@ -29,17 +29,17 @@ class Card extends Component {
                 >
 
                 <div className={classes.CardHeader}>
-                    <div> {cardItem.cardName} </div>
+                    <div className={classes.WordSpacing}> {cardItem.cardName} </div>
                     <div><FaRegTrashAlt onClick={() => this.props.deleteCard(cardItem.cardId, listId)} style={{ color: "#ff0037", cursor: "pointer" }} /></div>
                 </div>
-                <div> {cardItem.cardDescription}</div>
+                <div className={classes.WordSpacing}> {cardItem.cardDescription}</div>
                 <div>
                     <textarea className={classes.CardTextArea} id={`text-${cardItem.cardId}`} placeholder="Enter comments" />
                 </div>
                 <Button click={() => this.addComment(listId, cardItem.cardId)} buttonColor="Green" > Add Comment</Button>
                 {
                     cardItem.comments.map((item, index) => {
-                        return (<div key={index}> {item} </div>)
+                        return (<div key={index} className={classes.WordSpacing}> {item} </div>)
                     })
                 }
             </div>
