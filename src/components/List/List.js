@@ -61,8 +61,8 @@ class List extends Component {
             <React.Fragment>
                 {this.props.lists.map((listItem, listIndex) => {
                     const addCardBtn = <div className={classes.AddCard} >
-                        <input type="text" className={`${classes.InputPadding} Input `} onChange={this.handleCardInputChange} placeholder="Enter Card Name" />
-                        <input type="text" className={`${classes.InputPadding} Input `} onChange={this.handleCardInputChange} placeholder="Enter Card Description" />
+                        <input type="text" className={`${classes.InputPadding} Input `} onChange={this.handleCardInputChange} placeholder="Card Name" />
+                        <input type="text" className={`${classes.InputPadding} Input `} onChange={this.handleCardInputChange} placeholder="Card Description (Optional)" />
                         <Button addClass="addCard" ref={this.btnRef} click={(e) => this.addCard(e, listItem.listId)} > Add Card </Button>
                     </div>;
                     return (
