@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 
 class List extends Component {
-    
+
     addCard = (event, listId) => {
         let cardItem = {};
         const cardNameInput = event.target.parentElement.children[0];
@@ -24,26 +24,35 @@ class List extends Component {
 
     handleCardInputChange = (event) => { // Vanilla JavaScript
         let cardName = event.target.parentElement.children[0].value;
-        let cardDesc = event.target.parentElement.children[1].value;
+        // let cardDesc = event.target.parentElement.children[1].value;
         const addCardButton = event.target.parentElement.children[2];
-        if (cardName.trim() && cardDesc.trim()) {
+        // if (cardName.trim() && cardDesc.trim()) {
+        if (cardName.trim()) {
             addCardButton.disabled = false;
         } else {
             addCardButton.disabled = true;
         }
     }
-    
-    componentDidUpdate(){ // JavaScript DOM Access
-        const addCardBtn = document.querySelectorAll(".addCard");
-        addCardBtn.forEach(item => {
-            if(!(item.parentElement.children[0].value.trim() && item.parentElement.children[1].value.trim()))
-                item.setAttribute("disabled", true)
-        });
-    }
- 
+
     dragStart = event => {
         event.dataTransfer.dropeffect = "move";
         event.dataTransfer.effectAllowed = "move";
+    }
+   
+    disableAddCardButton = () => { // JavaScript DOM Access
+        const addCardBtn = document.querySelectorAll(".addCard");
+        addCardBtn.forEach(item => {
+            if (!(item.parentElement.children[0].value.trim() && item.parentElement.children[1].value.trim()))
+                item.setAttribute("disabled", true)
+        });
+    }
+
+    componentDidUpdate() {
+        this.disableAddCardButton();
+    }
+
+    componentDidMount() { 
+        this.disableAddCardButton();
     }
 
     render() {
@@ -59,7 +68,7 @@ class List extends Component {
                     return (
                         <Droppable key={listItem.listId} droppableId={listItem.listId} >
                             {provided => {
-                                return (<div draggable="true"  onDragStart={(e) => this.dragStart(e)}
+                                return (<div draggable="true" onDragStart={(e) => this.dragStart(e)}
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
                                     className={classes.List}
